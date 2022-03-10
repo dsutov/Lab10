@@ -2,17 +2,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Stopwatch extends Thread implements KeyListener {
-    public int seconds = 1000000000;
 
-    public Stopwatch() {
-        //this.seconds = seconds;
-    }
+    public boolean pressed = false;
+    public static int counter = 0;
+
+
 
     @Override
     public void run() {
 
-        for(int i = 0; i < seconds;i++) {
-            System.out.println(i + " Second/s");
+        while(true) {
+            System.out.println(counter + " Second/s");
+            counter++;
+
+            if(pressed) {
+                System.out.println("S pressed");
+            }
 
             try {
                 Thread.sleep(1000);
@@ -20,7 +25,7 @@ public class Stopwatch extends Thread implements KeyListener {
                 System.out.println("Error");
             }
         }
-        
+
     }
 
     public static void main(String[] args) {
@@ -29,18 +34,17 @@ public class Stopwatch extends Thread implements KeyListener {
         Stopwatch t2 = new Stopwatch();
         t1.start();
         t2.start();
-
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        if(e.getKeyCode() == 83){
+            pressed = true;
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
-
 
     }
 
